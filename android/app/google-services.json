@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "226259309451",
+    "project_id": "flipr-hack",
+    "storage_bucket": "flipr-hack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226259309451:android:098c1946a71e858e32158e",
+        "android_client_info": {
+          "package_name": "com.example.code_bois"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226259309451-td46edo8nro5it49gtko3ke5bkf5emla.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.code_bois",
+            "certificate_hash": "b4182e12a8916a265f183a4d6fb8018207c73719"
+          }
+        },
+        {
+          "client_id": "226259309451-e15n0i74n7e95q982ebulevut7bk718f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDym5Pl8-75tL_cKW3weCn9CZ0XRT0r5ys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226259309451-e15n0i74n7e95q982ebulevut7bk718f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
