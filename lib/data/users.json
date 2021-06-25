@@ -1,0 +1,17 @@
+{ 
+"users" : 
+    {
+    "uidtest1": {
+        "uid": "uidtest1",
+        "username": "usernametest1",
+        "email": "email",
+        "googleornot": true
+    },
+    "uidtest2": {
+        "uid": "uidtest2",
+        "username": "usernametest2",
+        "email": "email",
+        "googleornot": true
+    }
+}
+}
