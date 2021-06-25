@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 //pages
 import './home.dart';
 import './history.dart';
+import './compose_email.dart';
 
 // ignore: must_be_immutable
 class LandingPage extends StatefulWidget {
@@ -55,6 +56,17 @@ class _LandingPageState extends State<LandingPage> {
           HistoryPage()
         ],
         index: selectedIndex,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => 
+                  ComposeEmailPage(),
+                ),
+            );
+        },
+        child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
