@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 //var url = Uri.parse("https://stark-castle-06298.herokuapp.com/getMails?api_key=GAURAV&email_id=gauravhviramgami@gmail.com");
+//var url = https://stark-castle-06298.herokuapp.com/scheduleMail?api_key=GAURAV&email_id=reubendevanesan@gmail.com&tocken=ya29.a0ARrdaM-nBR-ZM7MYw6eBzPtXYTWD7fLJm8yHj2ha_iGsV6yGMnJFsosTG46omDp5-B9EE3WujLFhDyTEtHV7ZIsJPW_xYO7WSqiP1Tbs9KSVLnxDa7bdDIA_f7rO5GAjo4iSrr7xkuTAxRrk8uGfEhlEg-Ol&to=viramgami.g@iitgn.ac.in&cc=reuben.sd@iitgn.ac.in&from=reubendevanesan@gmail.com&subject=This is a test subject&html=<h1>Hello! This is test Mail</h1>
+
 List<dynamic> results = [];
 var mailData = {};
 List<dynamic> historyData = [];

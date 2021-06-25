@@ -59,14 +59,18 @@ class AuthenticationService {
   //Sign in with google
   Future<String?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount googleUser = (await GoogleSignIn().signIn())!;
+      final GoogleSignInAccount googleUser = (await GoogleSignIn(scopes: <String>[
+          'email',
+          'https://mail.google.com/',
+        ],
+      ).signIn())!;
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-
+      
       final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
       User currentUser = userCredential.user!;
       CollectionReference users = FirebaseFirestore.instance.collection('users');
