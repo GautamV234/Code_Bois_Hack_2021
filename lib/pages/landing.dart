@@ -52,7 +52,7 @@ class _LandingPageState extends State<LandingPage> {
       body: IndexedStack(
         children: <Widget>[
           HomePage(),
-          HistoryPage(),
+          HistoryPage()
         ],
         index: selectedIndex,
       ),
