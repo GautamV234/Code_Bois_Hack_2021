@@ -12,7 +12,7 @@ const FLIPR_COLLECTION_NAME = "mails";
 const ERROR_JSON = {"success":false,"message":"Some error occured"};
 const SUCCESS_JSON = {"success":true,"message":"Query was successful"};
 const API_KEY_INVALID_JSON = {"success":false,"message":"Invalid API Key"};
-const VALID_API_KEYS = ['GAURAV'];
+const VALID_API_KEYS = ['<API KEY>'];
 
 //GLOBAL FUNCTIONS
 const checkApiKey = (apiKey)=>{
