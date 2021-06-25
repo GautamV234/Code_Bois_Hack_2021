@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const dbname = "Flipr";
-const url =  "<>";
+const url =  "<MongoDB URL>";
 const mongoOptions = {useNewUrlParser:true, useUnifiedTopology: true};
 
 const state = {

@@ -30,7 +30,7 @@ app.use(methodOverride('_method'));
 app.get('/',(request,response)=>{
     //CHECK API KEY
     let apiKey = request.query.api_key;
-    if(!checkApiKey(apiKey)) return response.send("Welcome to our API! You need to have API Key to access this service.");
+    if(!checkApiKey(apiKey)) return response.send("Welcome to Code bois API! You need to have API Key to access this service.");
     return response.send("Welcome to our API! Enjoy the service.");
 });
 
