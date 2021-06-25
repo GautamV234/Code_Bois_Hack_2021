@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const dbname = "Flipr";
-const url =  "mongodb+srv://gaurav:gaurav@cluster0.8f0ei.mongodb.net/Flipr?retryWrites=true&w=majority";
+const url =  "<>";
 const mongoOptions = {useNewUrlParser:true, useUnifiedTopology: true};
 
 const state = {
