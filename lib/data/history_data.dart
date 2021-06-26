@@ -77,7 +77,7 @@ Future<bool> getMails() async {
   }
 }
 
-Future<bool> sendMail(mailData) async {
+Future<bool> scheduleMail(mailData) async {
   try {
     if(emailid == "none"){
       emailid = FirebaseAuth.instance.currentUser!.email!;
@@ -104,7 +104,9 @@ Future<bool> sendMail(mailData) async {
         'cc': mailData.cc,
         'bcc': mailData.bcc,
         'html': mailData.html_body,
-        'schedule': false
+        'schedule': mailData.schedule,
+        'method': mailData.method,
+        'time': mailData.time
       };
 
       var baseUrl = "stark-castle-06298.herokuapp.com";
@@ -116,7 +118,7 @@ Future<bool> sendMail(mailData) async {
       Map<String, dynamic> responseJson = jsonDecode(response.body);
 
       if(responseJson['success'] == true){
-        print("Mail sent");
+        print("Mails scheduled");
         return true;
       }
       else {
