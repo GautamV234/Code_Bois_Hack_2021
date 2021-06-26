@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import '../data/history_data.dart';
-import '../widgets/loading_widget.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({ Key? key }) : super(key: key);
@@ -12,24 +11,14 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  bool datastatus = false;
-  bool loading = true;
-
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 5)).then((e) async {
-      datastatus = await getMails();
-      print(historyData);
-      setState(() {
-        loading = false;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return (loading) ? LoadingWidget() : SingleChildScrollView(child: showHistoryData());
+    return SingleChildScrollView(child: showHistoryData());
   }
 }
 

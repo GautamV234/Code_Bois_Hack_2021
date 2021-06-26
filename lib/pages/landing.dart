@@ -1,6 +1,8 @@
 import 'package:code_bois/utils/authentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../data/history_data.dart';
+import '../widgets/loading_widget.dart';
 
 //pages
 import './home.dart';
@@ -19,9 +21,19 @@ class _LandingPageState extends State<LandingPage> {
   User? user = FirebaseAuth.instance.currentUser;
   int selectedIndex = 0;
 
+  bool datastatus = false;
+  bool loading = true;
+
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration(seconds: 5)).then((e) async {
+      datastatus = await getMails();
+      print(historyData);
+      setState(() {
+        loading = false;
+      });
+    });
   }
 
   Future<void> handleTap(String value) async {
@@ -36,7 +48,7 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return (loading) ? LoadingWidget() : Scaffold(
       appBar: AppBar(
         title: Text('FLIPR HACK'),
         actions: [
