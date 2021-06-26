@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_html/flutter_html.dart';
 import '../data/history_data.dart';
 import '../widgets/loading_widget.dart';
 
@@ -17,7 +17,7 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero).then((e) async {
+    Future.delayed(Duration(seconds: 5)).then((e) async {
       datastatus = await getMails();
       print(historyData);
       setState(() {
@@ -29,7 +29,7 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: (loading) ? LoadingWidget() : showHistoryData()
+      child: (loading) ? LoadingWidget() : SingleChildScrollView(child: showHistoryData())
     );
   }
 }
@@ -42,7 +42,9 @@ Widget showHistoryData(){
       ExpansionTile(
         title: Text('${historyData[i]['to']}'),
         children: <Widget>[
-          Text('${historyData[i]['html_body']}'),
+          Html(
+            data: historyData[i]['html_body']
+          ),
           Text('${historyData[i]['subject']}'),
         ],
       )

@@ -2,26 +2,38 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-bool googlesigninornot = false;
+bool googlesigninornot = true;
+String emailid = "none";
+String uid = "none";
+String accesstoken = "none";
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   //Sign out function.
   Future<void> signOut() async {
+    emailid = "none";
+    uid = "none";
+    accesstoken = "none";
     googlesigninornot = false;
     await _firebaseAuth.signOut();
   }
 
-  //Sign in with email and password.
+  //Sign in with username and password.
   Future<String?> signIn(
       {required String username, required String password}) async {
     try {
-      String tempemail = username + "@fliprhack.com";
+      String tempemail = username + "@codebois.com";
 
       UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: tempemail, password: password);
 
       User currentUser = userCredential.user!;
+
+      //data initiliaze
+      emailid = tempemail;
+      accesstoken = "none";
+      uid = currentUser.uid;
+      googlesigninornot = false;
 
       return "Signed in successfully!";
       
@@ -33,7 +45,7 @@ class AuthenticationService {
   //Sign up with email and password.
   Future<String?> signUp({required String username, required String password}) async {
     try {
-      String tempemail = username + "@fliprhack.com";
+      String tempemail = username + "@codebois.com";
       UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: tempemail, password: password);
 
       User currentUser = userCredential.user!;
@@ -48,6 +60,12 @@ class AuthenticationService {
         },
         SetOptions(merge: true),
       );
+
+      //data initiliaze
+      emailid = tempemail;
+      accesstoken = "none";
+      uid = currentUser.uid;
+      googlesigninornot = false;
 
       return "Signed up successfully!";
 
@@ -65,6 +83,8 @@ class AuthenticationService {
         ],
       ).signIn())!;
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      googlesigninornot = true;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -85,7 +105,11 @@ class AuthenticationService {
         SetOptions(merge: true),
       );
 
+      //data initiliaze
+      emailid = currentUser.email!;
+      uid = currentUser.uid;
       googlesigninornot = true;
+      accesstoken = googleAuth.accessToken!;
 
       return "Signed in successfully!";
     } on FirebaseAuthException catch (e) {

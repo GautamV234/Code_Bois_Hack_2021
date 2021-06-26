@@ -1,3 +1,4 @@
+import 'package:code_bois/utils/authentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -23,10 +24,10 @@ class _LandingPageState extends State<LandingPage> {
     super.initState();
   }
 
-  void handleTap(String value) {
+  Future<void> handleTap(String value) async {
     switch (value) {
       case 'SIGNOUT':
-        FirebaseAuth.instance.signOut();
+        await AuthenticationService().signOut();
         break;
       default:
         return;
