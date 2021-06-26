@@ -17,6 +17,7 @@ dependencies:
   firebase_core: ^1.3.0
   flutter_html: ^2.1.0
   google_sign_in: ^5.0.4
+  flutter_summernote: ^1.0.0
   http: ^0.13.3  
 
 dev_dependencies:
