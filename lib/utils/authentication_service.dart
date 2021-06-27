@@ -116,4 +116,22 @@ class AuthenticationService {
       return e.message;
     }
   }
+
+  Future<void> refreshToken() async {
+    final GoogleSignInAccount googleSignInAccount = (await GoogleSignIn(scopes: <String>[
+        'email',
+        'https://mail.google.com/',
+      ],
+    ).signInSilently())!;
+    
+    final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+    accesstoken = googleSignInAuthentication.accessToken!;
+  }
 }

@@ -79,6 +79,8 @@ Future<bool> getMails() async {
 
 Future<bool> scheduleMail(mailData) async {
   try {
+    await AuthenticationService().refreshToken();
+
     if(emailid == "none"){
       emailid = FirebaseAuth.instance.currentUser!.email!;
       if(emailid.endsWith("@codebois.com")){

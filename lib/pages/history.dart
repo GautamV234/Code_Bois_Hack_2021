@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import '../data/history_data.dart';
+import '../data/data.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({ Key? key }) : super(key: key);
