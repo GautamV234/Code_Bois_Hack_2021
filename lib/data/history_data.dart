@@ -163,7 +163,8 @@ Future<bool> cancelMail(id) async {
       print(googlesigninornot);
       var queryParameters = {
         'api_key': 'GAURAV',
-        'id': id
+        'id': id,
+        'email_id': emailid
       };
 
       var baseUrl = "stark-castle-06298.herokuapp.com";
