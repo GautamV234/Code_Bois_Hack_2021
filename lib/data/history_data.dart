@@ -99,14 +99,14 @@ Future<bool> scheduleMail(mailData) async {
         'api_key': 'GAURAV',
         'email_id': emailid,
         'tocken': accesstoken,
-        'to': mailData.to,
-        'subject': mailData.subject,
-        'cc': mailData.cc,
-        'bcc': mailData.bcc,
-        'html': mailData.html_body,
-        'schedule': mailData.schedule,
-        'method': mailData.method,
-        'time': mailData.time
+        'to': mailData['to'],
+        'subject': mailData['subject'],
+        'cc': mailData['cc'],
+        'bcc': mailData['bcc'],
+        'html': mailData['html'],
+        'schedule': mailData['schedule'],
+        'method': mailData['method'],
+        'time': mailData['time']
       };
 
       var baseUrl = "stark-castle-06298.herokuapp.com";

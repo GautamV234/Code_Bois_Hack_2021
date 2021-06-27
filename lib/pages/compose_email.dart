@@ -1,6 +1,8 @@
+import 'package:code_bois/data/history_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_summernote/flutter_summernote.dart';
+import '../widgets/loading_widget.dart';
 
 class ComposeEmailPage extends StatefulWidget {
   const ComposeEmailPage({ Key? key }) : super(key: key);
@@ -19,6 +21,8 @@ class _ComposeEmailPageState extends State<ComposeEmailPage> {
         return;
     }
   }
+
+  bool loading = false;
 
   GlobalKey<FlutterSummernoteState> _keyEditor = GlobalKey();
   late TextEditingController _toController;
@@ -61,7 +65,7 @@ class _ComposeEmailPageState extends State<ComposeEmailPage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: (loading) ? LoadingWidget() : SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -138,8 +142,36 @@ class _ComposeEmailPageState extends State<ComposeEmailPage> {
                   OutlinedButton.icon(
                     label: Text('Send'),
                     icon: Icon(Icons.send,),
-                    onPressed: () {
-                      //TODO: Send Mail
+                    onPressed: () async {
+                      if (_toController.text == '') {
+                        showDialog(
+                          context: context,
+                          builder: (_) => new AlertDialog(
+                            content: Text(
+                                'Please provide the receiptant email id'),
+                          ),
+                        );
+                      } else {
+                        final _etEditor = await _keyEditor.currentState!.getText();
+                        var c = _keyEditor.currentState;
+                        var s = (c != null)?await c.getText():"null";
+                        var mailOptions = {
+                          'to': _toController.text,
+                          'subject': _subjectController.text,
+                          'cc': _ccController.text,
+                          'bcc': _bccController.text,
+                          'html': s,
+                          'schedule': 'false',
+                          'method': "-",
+                          'time': "-"
+                        };
+                        loading = true;
+                        setState(() {});
+                        await scheduleMail(mailOptions);
+                        await getMails();
+                        loading = false;
+                        Navigator.pop(context);
+                      }
                     },
                   ),
                   OutlinedButton.icon(
