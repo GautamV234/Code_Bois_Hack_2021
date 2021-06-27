@@ -13,6 +13,9 @@ The features of the app are:
  - History Screen: Shows all the mails that have been sent by the app.
  - Compose Email Screen: To compose an email with all required features for text modifications. 
 
+## Disclaimer
+The login with email and password is a test feature and is not working at the moment please using google sign in for using the app.
+
 
 The mail features included are: 
  - To
