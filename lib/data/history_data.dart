@@ -112,7 +112,8 @@ Future<bool> scheduleMail(mailData) async {
         'day': mailData['day'],
         'date': mailData['date'],
         'month': mailData['month'],
-        'year': mailData['year']
+        'year': mailData['year'],
+        'id': mailData['id']
       };
 
       var baseUrl = "stark-castle-06298.herokuapp.com";
