@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const dbname = "Flipr";
-const url =  "mongodb+srv://gaurav:gaurav@cluster0.8f0ei.mongodb.net/Flipr?retryWrites=true&w=majority";
+const dbname = "code_bois";
+const url =  "mongodb+srv://gaurav:gaurav@cluster0.8f0ei.mongodb.net/code_bois?retryWrites=true&w=majority";
 const mongoOptions = {useNewUrlParser:true, useUnifiedTopology: true};
 
 const state = {

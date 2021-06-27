@@ -12,7 +12,7 @@ const fs = require("fs");
 
 //GLOBAL CONSTANTS
 const PORT = process.env.PORT || 3000;
-const FLIPR_COLLECTION_NAME = "mails";
+const CODE_COLLECTION_NAME = "mails";
 
 const ERROR_JSON = {"success":false, "message":"Some error occured"};
 const SUCCESS_JSON = {"success":true, "message":"Query was successful"};
@@ -49,7 +49,7 @@ app.get('/getMails',(request,response)=>{
     let emailId = request.query.email_id;
 
     //DO THE JOB
-    db.getDB().collection(FLIPR_COLLECTION_NAME).find({"email": emailId}).toArray((error,documents)=>{
+    db.getDB().collection(CODE_COLLECTION_NAME).find({"email": emailId}).toArray((error,documents)=>{
         if(error){
             response.json(ERROR_JSON);
         } else {
@@ -61,7 +61,7 @@ app.get('/getMails',(request,response)=>{
                 sent_mails: [],
                 future_mails: []
               }
-              db.getDB().collection(FLIPR_COLLECTION_NAME).insertOne(data, (error,result)=>{
+              db.getDB().collection(CODE_COLLECTION_NAME).insertOne(data, (error,result)=>{
                   if(error){
                       console.log(error);
                   } else if(result.result.ok===1){
@@ -135,7 +135,7 @@ app.get('/scheduleMail', async (request,response)=>{
 
     if (data.schedule === "true") {
       //DO THE JOB
-      db.getDB().collection(FLIPR_COLLECTION_NAME).findOneAndUpdate({"email":email}, {$push:{"future_mails":data}}, async (error, result)=>{
+      db.getDB().collection(CODE_COLLECTION_NAME).findOneAndUpdate({"email":email}, {$push:{"future_mails":data}}, async (error, result)=>{
         if(error){
             response.send(ERROR_JSON);
         } else if(result.ok===1){
@@ -169,7 +169,7 @@ app.get('/stopMail', async (request,response)=>{
 
     let id = request.query.id;
     let email = request.query.email_id;
-    db.getDB().collection(FLIPR_COLLECTION_NAME).findOneAndUpdate({"email":email}, {$pull:{"future_mails":{"id": id}}}, (error, result)=>{
+    db.getDB().collection(CODE_COLLECTION_NAME).findOneAndUpdate({"email":email}, {$pull:{"future_mails":{"id": id}}}, (error, result)=>{
       if(error){
           console.log(error);
       } else if(result.ok===1){
@@ -203,7 +203,7 @@ function sendMailUsingNodemailer (transporter, mailOptions) {
       let email = mailOptions.from;
 
       //DO THE JOB
-      db.getDB().collection(FLIPR_COLLECTION_NAME).findOneAndUpdate({"email":email}, {$push:{"sent_mails":data}}, (error, result)=>{
+      db.getDB().collection(CODE_COLLECTION_NAME).findOneAndUpdate({"email":email}, {$push:{"sent_mails":data}}, (error, result)=>{
         if(error){
             console.log(error);
         } else if(result.ok===1){
