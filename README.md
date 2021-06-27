@@ -37,11 +37,13 @@ You can include text editing features as well which will attract extra points.Th
  - Changing the font type of the text
 
 
+## Images
+
+
 ## Team Members
  - Reuben Devanesan
  - Gautam Vashishtha
  - Gaurav Viramgami
- - Yash More
 
 
 
