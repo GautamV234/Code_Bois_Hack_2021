@@ -106,7 +106,13 @@ Future<bool> scheduleMail(mailData) async {
         'html': mailData['html'],
         'schedule': mailData['schedule'],
         'method': mailData['method'],
-        'time': mailData['time']
+        'seconds': mailData['seconds'],
+        'minutes': mailData['minutes'],
+        'hours': mailData['hours'],
+        'day': mailData['day'],
+        'date': mailData['date'],
+        'month': mailData['month'],
+        'year': mailData['year']
       };
 
       var baseUrl = "stark-castle-06298.herokuapp.com";

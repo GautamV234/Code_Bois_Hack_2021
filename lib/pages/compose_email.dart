@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_summernote/flutter_summernote.dart';
 import '../widgets/loading_widget.dart';
+import '../utils/authentication_service.dart';
 
 class ComposeEmailPage extends StatefulWidget {
   const ComposeEmailPage({ Key? key }) : super(key: key);
@@ -29,6 +30,8 @@ class _ComposeEmailPageState extends State<ComposeEmailPage> {
   late TextEditingController _subjectController;
   late TextEditingController _ccController;
   late TextEditingController _bccController;
+
+//  String _chosenValue = "None";
 
   @override
   void initState() {
@@ -163,7 +166,13 @@ class _ComposeEmailPageState extends State<ComposeEmailPage> {
                           'html': s,
                           'schedule': 'false',
                           'method': "-",
-                          'time': "-"
+                          'seconds': "-",
+                          'minutes': "-",
+                          'hours': "-",
+                          'day': "-",
+                          'date': "-",
+                          'month': "-",
+                          'year': "-"
                         };
                         loading = true;
                         setState(() {});
@@ -177,8 +186,108 @@ class _ComposeEmailPageState extends State<ComposeEmailPage> {
                   OutlinedButton.icon(
                     label: Text('Schedule'),
                     icon: Icon(Icons.schedule,),
-                    onPressed: () {
+                    onPressed: () async {
                       //TODO: Schedule Mail
+                      if (_toController.text == '') {
+                        showDialog(
+                          context: context,
+                          builder: (_) => new AlertDialog(
+                            content: Text(
+                                'Please provide the receiptant email id'),
+                          ),
+                        );
+                      } else {
+                        final _etEditor = await _keyEditor.currentState!.getText();
+                        var c = _keyEditor.currentState;
+                        var s = (c != null)?await c.getText():"null";
+                        var to = _toController.text;
+                        var subject = _subjectController.text;
+                        var cc = _ccController.text;
+                        var bcc = _bccController.text;
+                        DateTime cTime = DateTime.now();
+                        var id = emailid + cTime.second.toString() + cTime.hour.toString() + cTime.minute.toString() + cTime.day.toString() + cTime.month.toString() + cTime.year.toString();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            String _chosenValue = "None";
+                            return StatefulBuilder(
+                              builder: (context, setState) {
+                                return AlertDialog(
+                                  title: Center(child: Text("Schedule Mail")),
+                                  content: Column(
+                                    children: <Widget>[
+                                      SizedBox(height: 20,),
+                                      Text("When to send?"),
+                                      SizedBox(height: 20,),
+                                      Text("Choose Recur Type"),
+                                      SizedBox(height: 10,),
+                                      DropdownButton<String>(
+                                        focusColor:Colors.white,
+                                        value: _chosenValue,
+                                        //elevation: 5,
+                                        style: TextStyle(color: Colors.white),
+                                        iconEnabledColor:Colors.black,
+                                        items: <String>[
+                                          'None',
+                                          'Every 20 Seconds',
+                                          'Every 30 Seconds',
+                                          'Daily',
+                                          'Weekly',
+                                          'Monthly',
+                                          'Yearly'
+                                        ].map<DropdownMenuItem<String>>((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value,style:TextStyle(color:Colors.black),),
+                                          );
+                                        }).toList(),
+                                        onChanged: (String? value) {
+                                          setState(() {
+                                            _chosenValue = value!;
+                                          });
+                                        },
+                                      ),
+                                      SizedBox(height: 20,),
+                                      OutlinedButton.icon(
+                                          label: Text('Schedule'),
+                                          icon: Icon(Icons.schedule,),
+                                          onPressed: () async {
+                                            var mailOptions = {
+                                              'to': to,
+                                              'subject': subject,
+                                              'cc': cc,
+                                              'bcc': bcc,
+                                              'html': s,
+                                              'schedule': (_chosenValue == "None")?'false':'true',
+                                              'method': _chosenValue,
+                                              'seconds': "-",
+                                              'minutes': "-",
+                                              'hours': "-",
+                                              'day': "-",
+                                              'date': "-",
+                                              'month': "-",
+                                              'year': "-",
+                                              "id": id
+                                            };
+                                            loading = true;
+                                            setState(() {});
+                                            await scheduleMail(mailOptions);
+                                            await getMails();
+                                            loading = false;
+                                            setState(() {
+                                              Navigator.pop(context);
+                                            });
+                                            Navigator.pop(context);
+                                          }
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        );
+                      }
                     },
                   )
                 ],
