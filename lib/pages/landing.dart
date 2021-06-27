@@ -1,7 +1,7 @@
 import 'package:code_bois/utils/authentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../data/history_data.dart';
+import '../data/data.dart';
 import '../widgets/loading_widget.dart';
 
 //pages

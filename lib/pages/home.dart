@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../data/history_data.dart';
+import '../data/data.dart';
 import 'package:flutter_html/flutter_html.dart';
 import '../widgets/loading_widget.dart';
 
