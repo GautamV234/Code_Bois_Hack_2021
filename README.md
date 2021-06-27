@@ -19,7 +19,7 @@ The features of the app are:
 ## Disclaimer
 The login with email and password is a test feature and is not working at the moment please using google sign in for using the app.
 
-
+## Features
 The mail features included are: 
  - To
  - CC
