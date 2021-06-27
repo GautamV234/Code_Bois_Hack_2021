@@ -12,10 +12,12 @@ class AuthenticationService {
 
   //Sign out function.
   Future<void> signOut() async {
+    final GoogleSignIn googleSignInObject = GoogleSignIn();
     emailid = "none";
     uid = "none";
     accesstoken = "none";
     googlesigninornot = false;
+    await googleSignInObject.signOut();
     await _firebaseAuth.signOut();
   }
 
@@ -25,7 +27,8 @@ class AuthenticationService {
     try {
       String tempemail = username + "@codebois.com";
 
-      UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: tempemail, password: password);
+      UserCredential userCredential = await _firebaseAuth
+          .signInWithEmailAndPassword(email: tempemail, password: password);
 
       User currentUser = userCredential.user!;
 
@@ -36,20 +39,22 @@ class AuthenticationService {
       googlesigninornot = false;
 
       return "Signed in successfully!";
-      
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
   }
 
   //Sign up with email and password.
-  Future<String?> signUp({required String username, required String password}) async {
+  Future<String?> signUp(
+      {required String username, required String password}) async {
     try {
       String tempemail = username + "@codebois.com";
-      UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: tempemail, password: password);
+      UserCredential userCredential = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: tempemail, password: password);
 
       User currentUser = userCredential.user!;
-      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
 
       await users.doc(currentUser.uid).set(
         {
@@ -68,7 +73,6 @@ class AuthenticationService {
       googlesigninornot = false;
 
       return "Signed up successfully!";
-
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
@@ -77,12 +81,14 @@ class AuthenticationService {
   //Sign in with google
   Future<String?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount googleUser = (await GoogleSignIn(scopes: <String>[
+      final GoogleSignInAccount googleUser = (await GoogleSignIn(
+        scopes: <String>[
           'email',
           'https://mail.google.com/',
         ],
       ).signIn())!;
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
       googlesigninornot = true;
 
@@ -90,10 +96,12 @@ class AuthenticationService {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      
-      final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
       User currentUser = userCredential.user!;
-      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
 
       await users.doc(currentUser.uid).set(
         {
@@ -118,20 +126,23 @@ class AuthenticationService {
   }
 
   Future<void> refreshToken() async {
-    final GoogleSignInAccount googleSignInAccount = (await GoogleSignIn(scopes: <String>[
+    final GoogleSignInAccount googleSignInAccount = (await GoogleSignIn(
+      scopes: <String>[
         'email',
         'https://mail.google.com/',
       ],
     ).signInSilently())!;
-    
-    final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
 
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
 
-    final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
     accesstoken = googleSignInAuthentication.accessToken!;
   }
 }
