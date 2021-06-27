@@ -12,6 +12,9 @@ The features of the app are:
  - Home Screen: Shows all the mails that are scheduled to be sent. Each scheduled email has a cancellation option to cancel the scheduled mail.
  - History Screen: Shows all the mails that have been sent by the app.
  - Compose Email Screen: To compose an email with all required features for text modifications. 
+ - Send recurring mails
+ - Schedule Mails
+ - Cancel recurring mails
 
 ## Disclaimer
 The login with email and password is a test feature and is not working at the moment please using google sign in for using the app.
