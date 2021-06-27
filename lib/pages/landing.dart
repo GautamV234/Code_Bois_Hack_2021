@@ -50,7 +50,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return (loading) ? LoadingWidget() : Scaffold(
       appBar: AppBar(
-        title: Text('FLIPR HACK'),
+        title: Text('Code Bois Hackathon'),
         actions: [
           PopupMenuButton<String>(
             onSelected: handleTap,

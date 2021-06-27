@@ -20,7 +20,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FLIPR HACK'),
+        title: Text('Code Bois Hackathon'),
       ),
       resizeToAvoidBottomInset: false,
       body: isLogin

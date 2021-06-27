@@ -115,7 +115,7 @@ class _ComposeEmailPageState extends State<ComposeEmailPage> {
     dateTime = DateFormat.yMd().format(DateTime.now());
     return Scaffold(
       appBar: AppBar(
-        title: Text('FLIPR HACK'),
+        title: Text('Code Bois Hackathon'),
         actions: [
           PopupMenuButton<String>(
             onSelected: handleTap,
